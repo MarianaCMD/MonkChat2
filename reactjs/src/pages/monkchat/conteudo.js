@@ -6,10 +6,14 @@ import LoadingBar from 'react-top-loading-bar'
 import { ContainerConteudo } from './conteudo.styled'
 import { ChatButton, ChatInput, ChatTextArea } from '../../components/outros/inputs'
 
-import { useState, useRef } from 'react';
+import { useState, useRef } from 'react'
 
-import Api from '../../service/api';
+import Cookies from 'js-cookie'
+import { useHistory } from 'react-router-dom'
+
+import Api from '../../service/api'
 const api = new Api();
+
 
 
 export default function Conteudo() {
@@ -19,7 +23,11 @@ export default function Conteudo() {
     const [msg, setMsg] = useState('')
 
     const loading = useRef(null);
+    const navigation = useHistory(); 
 
+    let usuarioLog = Cookies.get('usuario-logado'); 
+    if (usuarioLog == null)
+         navigation.push('/');
 
     const validarResposta = (resp) => {
         //console.log(resp);
